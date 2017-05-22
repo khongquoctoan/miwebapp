@@ -1,0 +1,258 @@
+<!--<div class="">-->
+<!--<ng-include src="'app/partials/header.html'"></ng-include>-->
+<!--<ng-include src="'app/partials/sidebar.html'"></ng-include>-->
+
+<!-- ------------------ CONTENT ---------------------- -->
+
+
+<div class="page">
+    <div class="page-header">
+        <h1 class="page-title">Dashboard</h1>
+        <div class="page-header-actions">
+            <!--            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Edit">
+                            <i class="icon wb-pencil" aria-hidden="true"></i>
+                        </button>--> 
+            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Refresh">
+                <i class="icon wb-refresh" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Setting">
+                <i class="icon wb-settings" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="page-content container-fluid">
+        <div class="row" data-plugin="matchHeight" data-by-row="true">
+
+
+            <div class="col-xlg-3 col-md-12">
+                <div class="row height-full">
+                    <div class="col-xlg-12 col-md-6" style="height:50%;">
+                        <!-- Panel Overall Sales -->
+                        <div class="widget widget-shadow bg-blue-600 white">
+                            <div class="widget-content padding-30">
+                                <div class="counter counter-lg counter-inverse text-left">
+                                    <div class="counter-label margin-bottom-20">
+                                        <div>OVERALL SALES</div>
+                                        <div>Lorem ipsum dolor sit amet</div>
+                                    </div>
+                                    <div class="counter-number-group margin-bottom-15">
+                                        <span class="counter-number-related">$</span>
+                                        <span class="counter-number">14,000</span>
+                                    </div>
+                                    <div class="counter-label">
+                                        <div class="progress progress-xs margin-bottom-10 bg-blue-800">
+                                            <div class="progress-bar progress-bar-info bg-white" style="width: 42%" aria-valuemax="100"
+                                                 aria-valuemin="0" aria-valuenow="42" role="progressbar">
+                                                <span class="sr-only">42%</span>
+                                            </div>
+                                        </div>
+                                        <div class="counter counter-sm text-left">
+                                            <div class="counter-number-group">
+                                                <span class="counter-number font-size-14">42%</span>
+                                                <span class="counter-number-related font-size-14">HIGHER THAN LAST MONTH</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Panel Overall Sales -->
+                    </div>
+
+                    <div class="col-xlg-12 col-md-6" style="height:50%;">
+                        <!-- Panel Today's Sales -->
+                        <div class="widget widget-shadow bg-red-600 white">
+                            <div class="widget-content padding-30">
+                                <div class="counter counter-lg counter-inverse text-left">
+                                    <div class="counter-label margin-bottom-20">
+                                        <div>TODAY'S SALES</div>
+                                        <div>Lorem ipsum dolor sit amet</div>
+                                    </div>
+                                    <div class="counter-number-group margin-bottom-10">
+                                        <span class="counter-number-related">$</span>
+                                        <span class="counter-number">41,160</span>
+                                    </div>
+                                    <div class="counter-label">
+                                        <div class="progress progress-xs margin-bottom-10 bg-red-800">
+                                            <div class="progress-bar progress-bar-info bg-white" style="width: 70%" aria-valuemax="100"
+                                                 aria-valuemin="0" aria-valuenow="70" role="progressbar">
+                                                <span class="sr-only">70%</span>
+                                            </div>
+                                        </div>
+                                        <div class="counter counter-sm text-left">
+                                            <div class="counter-number-group">
+                                                <span class="counter-number font-size-14">70%</span>
+                                                <span class="counter-number-related font-size-14">HIGHER THAN LAST MONTH</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Panel Today's Sales -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row" data-plugin="matchHeight" data-by-row="true">
+            <div class="col-lg-4 col-md-6">
+                <!-- Panel Followers -->
+                <div class="panel" id="followers">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            Khách hàng mới
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group list-group-dividered list-group-full">
+                            <li class="list-group-item" ng-repeat="latest in vm.customersLatest">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <a class="avatar" href="#/module/customer/{{latest.id}}">
+                                            <img src="public/uploads/customer/{{latest.avatar || 'blank-customer.png'}}" alt="">
+                                            <i></i>
+                                        </a>
+                                    </div>
+                                    <div class="media-body">
+                                        <div>
+                                            <a class="hightlight" href="#/module/customer/{{latest.id}}">{{latest.customerName}}</a>
+                                        </div>
+                                        <small>@{{latest.customerCode}}
+                                            <time  class="pull-right" datetime="{{latest.created_at}}">{{latest.created_at|amTimeAgo}}</time>
+                                        </small>
+                                        
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End Panel Followers -->
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <!-- Panel Tickets -->
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Thông tin tiếp nhận</h3>
+                    </div>
+                    <div class="panel-body">
+                        <ul class="list-group list-group-dividered list-group-full">
+                            <li class="list-group-item" ng-repeat="latest in vm.notesLatest">
+                                <small class="label label-round label-info pull-right">{{latest.status}}</small>
+                                <p style="max-height: 45px;overflow: hidden;">
+                                    <span>{{latest.content}}</span>
+                                </p>
+                                <small>
+                                    <a class="hightlight" href="javascript:void(0)">
+                                        <span class="avatar avatar-xs">
+                                            <img src="public/uploads/avatar/{{latest.avatar || 'blank-avatar.png'}}" alt="">
+                                        </span>
+                                        <span>{{latest.userName}}</span>
+                                    </a>
+                                    <time datetime="{{latest.created_at}}" class="pull-right">{{latest.created_at|amTimeAgo}}</time>
+                                </small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End Panel Tickets -->
+            </div>
+
+            <div class="col-lg-4 col-md-12">
+                <!-- Widget Linepoint -->
+                <div class="panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Cuộc gọi trong ngày</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row text-center">
+                            <div class="col-xs-4">
+                                <div class="counter">
+                                    <div class="counter-label">TOTAL</div>
+                                    <div class="counter-number red-600">20,186</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="counter">
+                                    <div class="counter-label">ANSWERED</div>
+                                    <div class="counter-number red-600">36</div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="counter">
+                                    <div class="counter-label">NO ANSWER</div>
+                                    <div class="counter-number red-600">261</div>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="list-group list-group-dividered list-group-full">
+                            <li class="list-group-item">
+                                <small class="label label-round label-info pull-right">Completed</small>
+                                <small>Opened by
+                                    <a class="hightlight" href="javascript:void(0)">
+                                        <span class="avatar avatar-xs">
+                                            <img src="public/uploads/avatar/16.jpg" alt="">
+                                        </span>
+                                        <span>Herman Beck</span>
+                                    </a>
+                                    <time datetime="2016-07-01T08:55">2 hours ago</time>
+                                </small>
+                            </li>
+                            <li class="list-group-item">
+                                <small class="label label-round label-warning pull-right">Pendening</small>
+                                <small>Opened by
+                                    <a class="hightlight" href="javascript:void(0)">
+                                        <span class="avatar avatar-xs">
+                                            <img src="public/uploads/avatar/2.jpg" alt="">
+                                        </span>
+                                        <span>Mary Adams</span>
+                                    </a>
+                                    <time datetime="2016-07-01T07:55">1 hour ago</time>
+                                </small>
+                            </li>
+                            <li class="list-group-item">
+                                <small class="label label-round label-primary pull-right">In progress</small>
+                                <small>Opened by
+                                    <a class="hightlight" href="javascript:void(0)">
+                                        <span class="avatar avatar-xs">
+                                            <img src="public/uploads/avatar/3.jpg" alt="">
+                                        </span>
+                                        <span>Caleb Richards</span>
+                                    </a>
+                                    <time datetime="2016-06-28T21:05">3 days ago</time>
+                                </small>
+                            </li>
+                            <li class="list-group-item">
+                                <small class="label label-round label-danger pull-right">Rejected</small>
+                                <small>Opened by
+                                    <a class="hightlight" href="javascript:void(0)">
+                                        <span class="avatar avatar-xs">
+                                            <img src="public/uploads/avatar/4.jpg" alt="">
+                                        </span>
+                                        <span>June Lane</span>
+                                    </a>
+                                    <time datetime="2016-06-27T13:05">4 days ago</time>
+                                </small>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- End Widget Linepoint -->
+            </div>
+
+        </div>
+
+
+
+
+
+    </div>
+</div>
+<!-- ---------------- END CONTENT -------------------- -->
+<!--<ng-include src="'app/partials/footer.html'"></ng-include>-->
+<!--</div>-->

@@ -1,0 +1,164 @@
+<!-- Page -->
+<div class="page page-profile">
+    <div class="page-content container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- Page Widget -->
+                <div class="widget widget-shadow text-center">
+                    <div class="widget-header">
+                        <div class="widget-header-content">
+                            <a class="avatar avatar-lg" href="javascript:void(0)">
+                                <img src="public/uploads/avatar/5.jpg" alt="...">
+                            </a>
+                            <h4 class="profile-user">{{vm.userinfo.lastName+' '+vm.userinfo.firstName }}</h4>
+                            <p class="profile-job">{{vm.userinfo.userCode}}</p>
+                            <p>Hi! I'm Adrian the Senior UI Designer at AmazingSurge. We hope
+                                you enjoy the design and quality of Social.</p>
+                            <div class="profile-social">
+                                <a class="icon bd-twitter" href="javascript:void(0)"></a>
+                                <a class="icon bd-facebook" href="javascript:void(0)"></a>
+                                <a class="icon bd-dribbble" href="javascript:void(0)"></a>
+                                <a class="icon bd-github" href="javascript:void(0)"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Page Widget -->
+            </div>
+
+            <div class="col-md-9">
+                <!-- Panel -->
+                <div class="panel">
+                    <div class="panel-body nav-tabs-animate nav-tabs-horizontal">
+                        <ul class="nav nav-tabs nav-tabs-line" data-plugin="nav-tabs" role="tablist">
+                            <li class="active" role="presentation">
+                                <a data-toggle="tab" href="#activities" aria-controls="activities" role="tab"> 
+                                    Lịch sử tương tác
+                                    <span class="badge badge-danger">5</span>
+                                </a>
+                            </li>
+                            <li role="presentation">
+                                <a data-toggle="tab" href="#profile" aria-controls="profile" role="tab">Thông tin tài khoản</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active animation-slide-left" id="activities" role="tabpanel">
+                                <ul class="list-group">
+                                    <li class="list-group-item">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a class="avatar" href="javascript:void(0)">
+                                                    <img class="img-responsive" src="public/uploads/avatar/2.jpg" alt="...">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">Ida Fleming
+                                                    <span>posted an updated</span>
+                                                </h4>
+                                                <small>active 14 minutes ago</small>
+                                                <div class="profile-brief">“Check if it can be corrected with overflow : hidden”</div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+
+                                    <li class="list-group-item">
+                                        <div class="media">
+                                            <div class="media-left">
+                                                <a class="avatar" href="javascript:void(0)">
+                                                    <img class="img-responsive" src="public/uploads/avatar/3.jpg"
+                                                         alt="...">
+                                                </a>
+                                            </div>
+                                            <div class="media-body">
+                                                <h4 class="media-heading">Julius
+                                                    <span>posted an updated</span>
+                                                </h4>
+                                                <small>active 14 minutes ago</small>
+                                                <div class="profile-brief">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                                    Integer nec odio. Praesent libero. Sed cursus ante
+                                                    dapibus diam.</div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <a class="btn btn-block btn-default profile-readMore" href="javascript:void(0)" role="button">Show more</a>
+                            </div>
+
+                            <div class="tab-pane animation-slide-left padding-20" id="profile" role="tabpanel">
+
+                                <form name="userInfoForm" autocomplete="off" ng-submit="userInfoForm.$valid && vm.updateOrAdd($event)">
+                                    <div class="row">
+                                        <div class="form-group col-sm-6 {{userInfoForm.firstName.$touched && userInfoForm.firstName.$invalid ? 'has-error' : ''}}">
+                                            <label class="control-label" for="">Tên</label>
+                                            <input type="text" class="form-control" required="" ng-model="vm.userinfo.firstName" name="firstName" placeholder="" autocomplete="off" />
+                                        </div>
+                                        <div class="form-group col-sm-6 {{userInfoForm.lastName.$touched && userInfoForm.lastName.$invalid ? 'has-error' : ''}}">
+                                            <label class="control-label" for="">Họ</label>
+                                            <input type="text" class="form-control" required="" ng-model="vm.userinfo.lastName" name="lastName" placeholder="" autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Giới tính</label>
+                                        <div>
+                                            <div class="radio-custom radio-default radio-inline">
+                                                <input type="radio" id="inputBasicMale" name="inputGender" />
+                                                <label for="inputBasicMale">Male</label>
+                                            </div>
+                                            <div class="radio-custom radio-default radio-inline">
+                                                <input type="radio" id="inputBasicFemale" name="inputGender" />
+                                                <label for="inputBasicFemale">Female</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6">
+                                            <label class="control-label" for="">Di động</label>
+                                            <input type="text" class="form-control" ng-model="vm.userinfo.mobile" name="mobile" placeholder="" autocomplete="off" />
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label class="control-label" for="">Điện thoại bàn</label>
+                                            <input type="text" class="form-control" ng-model="vm.userinfo.phone" name="phone" placeholder="" autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-sm-6 {{userInfoForm.email.$touched && userInfoForm.email.$invalid ? 'has-error' : ''}}">
+                                            <label class="control-label" for="">Email</label>
+                                            <input type="text" class="form-control" required="" ng-model="vm.userinfo.email" name="email" placeholder="" autocomplete="off" />
+                                        </div>
+                                        <div class="form-group col-sm-6 {{userInfoForm.password.$touched && userInfoForm.password.$invalid && vm.userinfo.changepassword ? 'has-error' : ''}}">
+                                            <label class="control-label" for="">Mật khẩu</label>
+
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" ng-required="vm.userinfo.changepassword" ng-disabled="!vm.userinfo.changepassword" ng-model="vm.userinfo.password" name="password" placeholder="Check vào checkbox để thay đổi mật khẩu" autocomplete="off" />
+                                                <span class="input-group-addon">
+                                                    <span class="checkbox-custom checkbox-default">
+                                                        <input type="checkbox" name="inputCheckboxChangePassword" ng-model="vm.userinfo.changepassword" checked="">
+                                                        <label for="inputCheckboxChangePassword"></label>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label" for="">Địa chỉ</label>
+                                        <input type="text" class="form-control" ng-model="vm.userinfo.address" name="address" placeholder="" autocomplete="off" />
+                                    </div>
+                                    <div class="form-group text-right">
+                                        <button type="submit" ng-disabled="userInfoForm.$invalid || !userInfoForm.$dirty" class="btn btn-primary">Cập nhật</button>
+                                    </div>
+                                </form>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Panel -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Page -->

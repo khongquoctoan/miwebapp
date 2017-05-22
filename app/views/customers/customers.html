@@ -1,0 +1,128 @@
+<div class="page">
+    <div class="page-header">
+        <h1 class="page-title">Khách hàng</h1>
+        <div class="page-header-actions">
+            <button type="button" ng-click="vm.reloadPage()" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Refresh">
+                <i class="icon wb-refresh" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Setting">
+                <i class="icon wb-settings" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="page-content">
+        <!-- Panel -->
+        <div class="panel">
+            <div class="panel-body container-fluid">
+                <form id="frmSearchMore" name="frmSearchMore" method="post">
+                    <div class="row cursearch">
+                        <div class="col-sm-6 col-md-5 mi-form">
+                            <a class="btn btn-sm btn-primary" title="Thêm mới" href="#/module/customer" onclick=""><i class="icon wb-plus-circle" aria-hidden="true"></i></a>
+                            <a class="btn btn-sm btn-primary" title="Duplicate" href="javascript:void(0)" onclick=""><i class="icon wb-copy" aria-hidden="true"></i></a>
+                            <a class="btn btn-sm btn-primary" title="Xóa" href="javascript:void(0)" onclick=""><i class="icon wb-trash" aria-hidden="true"></i></a>
+                            <a class="btn btn-sm btn-primary" title="Download" href="javascript:void(0)" onclick=""><i class="icon wb-download" aria-hidden="true"></i></a>
+                            <a class="btn btn-sm btn-primary" title="Upload" href="javascript:void(0)" onclick=""><i class="icon wb-upload" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="col-sm-6 col-md-2 mi-form">
+                            <select class="form-control input-sm" id="searchColumn[]" name="searchColumn[]" style="max-width:"><option value=""> - Tìm kiếm theo - </option><option value="customer.CUSTOMER_ID">ID KH</option><option value="customer.REG_DATE">Ngày tạo</option><option value="customer.ALLOC_DATE">Phân bổ</option><option value="customer.register_date">Ngày import</option><option value="customer.LAST_ORDER_DATE">Ngày mua</option><option value="customer.RECEIVE_DATE">Ngày nhận</option><option value="customer.TOTAL_DEAL_MONEY">Tổng tiền</option><option value="customer.CUSTOMER_NAME">Tên Khách hàng</option><option value="customer.TELEPHONE">SĐT 1</option><option value="customer.SECOND_TELE">SĐT 2</option><option value="customer.THIRD_TELE">SĐT 3</option><option value="customer_property.PROPERTY_NAME">Phân loại KH</option><option value="user_info.USER_NAME">NV Sale</option><option value="product_kind.KIND_NAME">Sản phẩm</option><option value="user_group.GROUP_NAME">Bộ phận</option><option value="order_status.NAME">Trạng thái</option></select>
+                        </div>
+                        <div class="col-sm-6 col-md-2 mi-form">
+                            <select class="form-control input-sm" id="searchType[]" name="searchType[]" style="max-width:"><option value="like">Gần giống</option><option value="like_left">Gần giống bên trái</option><option value="like_right">Gần giống bên phải</option><option value="not_like_left">Loại trừ gần giống bên trái</option><option value="not_like_right">Loại trừ gần giống bên phải</option><option value="=">=</option><option value=">">&gt;</option><option value="<">&lt;</option><option value="<>">&lt;&gt;</option><option value=">=">&gt;=</option><option value="<=">&lt;=</option></select>
+                        </div>
+                        <div class="col-sm-6 col-md-2 mi-form">
+                            <input type="text" class="form-control input-sm" id="dt_keyword_search" name="dt_keyword_search[]" value="">
+                        </div>
+                        <div class="col-sm-6 col-md-1 mi-form">
+                            <a class="btn btn-sm btn-primary" href="javascript:void(0)" onclick="getSearchInfo('http://localhost:99/index.php/customer/index/0/10/CUSTOMER_ID/DESC/');">Tìm</a>
+                        </div>
+                    </div>
+                </form>
+                
+                <div class="table-responsive">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span class="checkbox-custom checkbox-default">
+                                        <input type="checkbox" name="ipCusListCheckAll" ng-model="vm.checkall" >
+                                        <label for="ipCusListCheckAll"></label>
+                                    </span>
+                                    {{vm.checkCus}}
+                                    {{vm.checkCus.length}}
+                                </th>
+                                <th>Mã KH</th>
+                                <th>Tên KH</th>
+                                <th>Di động</th>
+                                <th>Điện thoại bàn</th>
+                                <th>Email</th>
+                                <th style="width: 85px">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Mã KH</th>
+                                <th>Tên KH</th>
+                                <th>Di động</th>
+                                <th>Điện thoại bàn</th>
+                                <th>Email</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+
+                            <tr data-ng-repeat="customer in vm.customers">
+                                <td>
+                                    <span class="checkbox-custom checkbox-default">
+                                        <input type="checkbox" ng-true-value="{{customer.id}}" name="ipCusListCheck{{customer.id}}" ng-model="vm.checkCus[$index]" ng-checked="vm.checkall">
+                                        <label for="ipCusListCheck{{customer.id}}"></label>
+                                    </span>
+                                </td>
+                                <td>{{customer.customerCode}}</td>
+                                <td>{{customer.lastName + ' ' + customer.firstName}}</td>
+                                <td>{{customer.mobile}}</td>
+                                <td>{{customer.phone}}</td>
+                                <td>{{customer.email}}</td>
+                                <td>
+                                    <a class="btn btn-floating btn-success btn-xs" href="#/module/customer/{{customer.id}}"><i class="icon wb-pencil" aria-hidden="true" style="margin-top:4px"></i></a>
+                                    <button type="button" ng-click="vm.deleteCustomer(customer.id)" class="btn btn-floating btn-danger btn-xs"><i class="icon wb-trash" aria-hidden="true"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="row" >
+                    <div class="table-footer">
+                        <div class="col-md-2">
+                            <select class="form-control input-sm" data-placeholder="Select action" onchange="">
+                                <option value="5">05</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="40">40</option>
+                                <option value="60">60</option>
+                                <option value="80">80</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="col-md-10">
+                            <ul class="pagination pagination-sm" style="margin:0px;float:right">
+                                <li ng-class="{disabled:vm.pager.currentPage === 1}"><a href="javascript:void(0)" ng-click="vm.setPage(1)">Đầu</a></li>
+                                <li ng-class="{disabled:vm.pager.currentPage === 1}"><a href="javascript:void(0)" ng-click="vm.setPage(vm.pager.currentPage - 1)"> Trước</a></li>
+                                <li class="hidden-mobile"> <a href="javascript:void(0)" class="" onclick="return false;">[ Hiển thị {{vm.pager.startIndex}} - {{vm.pager.endIndex}} trong {{vm.totalRecords}} ] </a></li>
+                                <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}"><a href="javascript:void(0)" ng-click="vm.setPage(vm.pager.currentPage + 1)">Sau</a> </li>
+                                <li ng-class="{disabled:vm.pager.currentPage === vm.pager.totalPages}"><a href="javascript:void(0)" ng-click="vm.setPage(vm.pager.totalPages)">Cuối</a></li>
+                                <li class="active hidden-mobile" style="margin-left:10px;">
+                                    <button class="btn btn-sm btn-primary" onclick="">Show All</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
