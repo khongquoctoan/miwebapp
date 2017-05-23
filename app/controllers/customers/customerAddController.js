@@ -11,7 +11,7 @@ define(['app'], function (app) {
         vm.customer = {};
         vm.notes = {};
         vm.tags = {};
-        console.log(customerId);
+//        console.log(customerId);
         
         vm.reloadPage = function(){
             $state.go($state.current, {}, {reload: true});
@@ -63,12 +63,12 @@ define(['app'], function (app) {
                 }
             });
         };
-        vm.settingSelect = {
-            multiple: true,
-            initSelection : function (element, callback) {
-                console.log($(element).data('$ngModelController').$modelValue);
-                callback($(element).data('$ngModelController').$modelValue);
-            }
+        
+        vm.loadTags = function ($query) {
+            var tags = vm.tags;
+            return tags.filter(function (country) {
+                return country.tag_name.toLowerCase().indexOf($query.toLowerCase()) != -1;
+            });
         };
         
         function init() {
@@ -81,11 +81,21 @@ define(['app'], function (app) {
 //            vm.tags_list_A =[{id:26,tag_name:'CBU1'},{id:27,tag_name:'CBU2'}];
             if (customerId > 0) {
                 customersService.getCustomer(customerId).then(function (res) {
-//                  customer.tags_list = (customer.tags_list).split(',');
-                    console.log(res);
+//                  res.info.tags_list = (res.info.tags_list).split(',');
+//                  res.info.tags_list =  [
+//                                {id:26, tag_name: "CBU1"},
+//                                
+//                              ];
+                    
                     vm.customer = res.info;
                     vm.tags = res.tags;
                     vm.notes = res.notes;
+                    console.log(res);
+                    console.log(vm.customer);
+                });
+            }else{
+                notesService.getTags().then(function (res) {
+                    vm.tags = res;
                 });
             }
         }

@@ -52,12 +52,11 @@
                         </div>
                         <div class="col-sm-6 col-md-4 mi-form">
                             <h5>Tags</h5>
-                            <select ui-select2 ng-model="vm.customer.tags_list" data-placeholder="" multiple class="form-control">
-                                <option selected="" ng-repeat="tag in vm.tags" value="{{tag.id}}">{{tag.tag_name}}</option>
-                            </select>
-                            
+                            <tags-input class="bootstrap-tags-input" placeholder="Thêm tags" ng-model="vm.customer.tags_list" display-property="tag_name" key-property="id" add-from-autocomplete-only="true" replace-spaces-with-dashes="false">
+                                <auto-complete source="vm.loadTags($query)" min-length="0" debounce-delay="0" load-on-focus="true" load-on-empty="true" max-results="10"></auto-complete>
+                            </tags-input>
                         </div>
-                        
+
                         <div class="col-sm-6 col-md-12 mi-form">
                             <a href="#/module/customers" class="btn btn-default btn-sm pull-left">Quay lại</a>  
                             <button type="submit" class="btn btn-primary btn-sm pull-right" ng-disabled="frmCustomerInfo.$invalid || !frmCustomerInfo.$dirty" >{{vm.customer.id ? 'Cập nhật':'Thêm mới'}}</button>
@@ -80,10 +79,9 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tags</label>
                                 <div class="col-sm-9">
-                                    <select ui-select2 ng-model="vm.note.tags" ng-init="vm.note.tags={data: [{id:26,text:'CBU1'},{id:27,text:'CBU2'}]};" data-placeholder="" multiple class="form-control" ng-required='true'>
-                                        <option value=""></option>
-                                        <option ng-selected='true' ng-repeat="tag in vm.tags" value="{{tag.id}}">{{tag.tag_name}}</option>
-                                    </select>
+                                    <tags-input class="bootstrap-tags-input" placeholder="Thêm tags" ng-model="vm.note.tags" display-property="tag_name" key-property="id" add-from-autocomplete-only="true" replace-spaces-with-dashes="false">
+                                        <auto-complete source="vm.loadTags($query)" min-length="0" debounce-delay="0" load-on-focus="true" load-on-empty="true" max-results="10"></auto-complete>
+                                    </tags-input>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -126,25 +124,26 @@
                     <div class="tab-content padding-top-15" >
                         <div class="tab-pane height-300 active animation-slide-top" id="tabNoteHistory" role="tabpanel" data-plugin="scrollable" data-direction="vertical">
                             <div data-role="container">
-                            <div data-role="content">
-                            <ul class="list-group list-group-full">
-                                <li class="list-group-item" ng-repeat="note in vm.notes">
-                                    <div class="media">
-                                        <div class="media-left">
-                                            <a class="avatar {{note.isOnline?'avatar-online':''}}" href="javascript:void(0)">
-                                                <img class="img-responsive" src="public/uploads/avatar/{{note.avatar || 'blank-avatar.png'}}" alt="..."><i></i></a>
-                                        </div>
-                                        <div class="media-body">
-                                            <h4 class="media-heading">{{note.userName}} <small class="pull-right">{{note.created_at|amTimeAgo}}</small></h4>
-                                            <p>{{note.content}}</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item" ng-show="!vm.notes.length">
-                                    <small> Chưa có lịch sử tiếp nhận! </small>
-                                </li>
-                            </ul>
-                            </div>
+                                <div data-role="content">
+                                    <ul class="list-group list-group-full">
+                                        <li class="list-group-item" ng-repeat="note in vm.notes">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <a class="avatar {{note.isOnline?'avatar-online':''}}" href="javascript:void(0)">
+                                                        <img class="img-responsive" src="public/uploads/avatar/{{note.avatar || 'blank-avatar.png'}}" alt="..."><i></i></a>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading">{{note.userName}} <small class="pull-right">{{note.created_at|amTimeAgo}}</small></h4>
+                                                    <p>{{note.content}}</p>
+                                                    <p>{{note.note_tags ? 'Tags: #'+note.note_tags : ''}}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item" ng-show="!vm.notes.length">
+                                            <small> Chưa có lịch sử tiếp nhận! </small>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="tab-pane height-300 animation-slide-top" id="tabCallHistory" role="tabpanel" >

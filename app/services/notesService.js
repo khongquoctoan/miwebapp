@@ -4,7 +4,7 @@ define(['app'], function (app) {
 
     var injectParams = ['$http', '$q', 'urls'];
 
-    var customersFactory = function ($http, $q, urls) {
+    var notesFactory = function ($http, $q, urls) {
         var serviceBase = urls.BASE_API,
             factory = {};
         
@@ -94,8 +94,8 @@ define(['app'], function (app) {
         return factory;
     };
 
-    customersFactory.$inject = injectParams;
+    notesFactory.$inject = injectParams;
 
-    app.factory('notesService', customersFactory);
+    app.factory('notesService', notesFactory);
 
 });

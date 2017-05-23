@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::group(['namespace' => 'Managers'], function () {
+    Route::get('/12333', ['as' => '', 'uses' => 'CustomersController@test']);
+});

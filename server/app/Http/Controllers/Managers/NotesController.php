@@ -17,11 +17,18 @@ class NotesController extends Controller
         return ['status' => false, 'list' => null];
     }
     
+    public function getTagsByListID($listID = []) {
+        $getData = DB::table('tags')->select('id', 'tag_name')->whereIn('id', $listID)->get();
+        return $getData;
+    }
+    
     public function getNotes($customerId, $noteId = 0){
         $getData = DB::table('mi_case')
                 ->leftJoin('users', 'users.id', '=', 'mi_case.created_by')
                 ->select('mi_case.content','mi_case.created_at','mi_case.status', 
-                        DB::raw("concat_ws(' ', users.lastName, users.firstName) as userName"), 'users.avatar', 'users.isOnline')
+                        DB::raw("concat_ws(' ', users.lastName, users.firstName) as userName"), 'users.avatar', 'users.isOnline',
+                        DB::raw("(SELECT group_concat(tag_name SEPARATOR ', #') FROM tags WHERE find_in_set(tags.id, mi_case.tags)) as note_tags")
+                        )
                 ->where([['type_case', '=', 'customer'],['type_id', '=', $customerId]])
                 ->orderBy('mi_case.id', 'desc');
         if($noteId > 0) $getData->where([['mi_case.id', '=', $noteId]]);
@@ -42,12 +49,16 @@ class NotesController extends Controller
     }
     
     public function insertNote($customerId, Request $request){
+        $tags = [];
+        foreach($request->tags as $tag){
+            $tags[] = $tag['id'];
+        }
         $getData = [
             'type_case'     => 'customer',
             'type_id'       => $customerId,
             'channel'       => 'note',
             'content'       => $request->content,
-//            'tags'          => $request->tags,
+            'tags'          => implode(',', $tags),
             'status'        => 'closed',
             'ip_address'    => $request->ip(),
             'created_by'    => (new UsersController)->getUserId(),

@@ -24,20 +24,41 @@
                             <a class="btn btn-sm btn-primary" title="Upload" href="javascript:void(0)" onclick=""><i class="icon wb-upload" aria-hidden="true"></i></a>
                         </div>
                         <div class="col-sm-6 col-md-2 mi-form">
-                            <select class="form-control input-sm" id="searchColumn[]" name="searchColumn[]" style="max-width:"><option value=""> - Tìm kiếm theo - </option><option value="customer.CUSTOMER_ID">ID KH</option><option value="customer.REG_DATE">Ngày tạo</option><option value="customer.ALLOC_DATE">Phân bổ</option><option value="customer.register_date">Ngày import</option><option value="customer.LAST_ORDER_DATE">Ngày mua</option><option value="customer.RECEIVE_DATE">Ngày nhận</option><option value="customer.TOTAL_DEAL_MONEY">Tổng tiền</option><option value="customer.CUSTOMER_NAME">Tên Khách hàng</option><option value="customer.TELEPHONE">SĐT 1</option><option value="customer.SECOND_TELE">SĐT 2</option><option value="customer.THIRD_TELE">SĐT 3</option><option value="customer_property.PROPERTY_NAME">Phân loại KH</option><option value="user_info.USER_NAME">NV Sale</option><option value="product_kind.KIND_NAME">Sản phẩm</option><option value="user_group.GROUP_NAME">Bộ phận</option><option value="order_status.NAME">Trạng thái</option></select>
+                            <select class="form-control input-sm" id="searchColumn[]" name="searchColumn[]" style="max-width:">
+                                <option value=""> - Tìm kiếm theo - </option>
+                                <option value="customer.CUSTOMER_ID">ID KH</option>
+                                <option value="customer.REG_DATE">Ngày tạo</option>
+                                <option value="customer.CUSTOMER_NAME">Tên Khách hàng</option>
+                                <option value="customer.TELEPHONE">SĐT 1</option>
+                                <option value="customer.SECOND_TELE">SĐT 2</option>
+                                <option value="customer.THIRD_TELE">SĐT 3</option>
+                                <option value="order_status.NAME">Trạng thái</option>
+                            </select>
                         </div>
                         <div class="col-sm-6 col-md-2 mi-form">
-                            <select class="form-control input-sm" id="searchType[]" name="searchType[]" style="max-width:"><option value="like">Gần giống</option><option value="like_left">Gần giống bên trái</option><option value="like_right">Gần giống bên phải</option><option value="not_like_left">Loại trừ gần giống bên trái</option><option value="not_like_right">Loại trừ gần giống bên phải</option><option value="=">=</option><option value=">">&gt;</option><option value="<">&lt;</option><option value="<>">&lt;&gt;</option><option value=">=">&gt;=</option><option value="<=">&lt;=</option></select>
+                            <select class="form-control input-sm" id="searchType[]" name="searchType[]" style="max-width:">
+                                <option value="like">Gần giống</option>
+                                <option value="like_left">Gần giống bên trái</option>
+                                <option value="like_right">Gần giống bên phải</option>
+                                <option value="not_like_left">Loại trừ gần giống bên trái</option>
+                                <option value="not_like_right">Loại trừ gần giống bên phải</option>
+                                <option value="=">=</option>
+                                <option value=">">&gt;</option>
+                                <option value="<">&lt;</option>
+                                <option value="<>">&lt;&gt;</option>
+                                <option value=">=">&gt;=</option>
+                                <option value="<=">&lt;=</option>
+                            </select>
                         </div>
                         <div class="col-sm-6 col-md-2 mi-form">
                             <input type="text" class="form-control input-sm" id="dt_keyword_search" name="dt_keyword_search[]" value="">
                         </div>
                         <div class="col-sm-6 col-md-1 mi-form">
-                            <a class="btn btn-sm btn-primary" href="javascript:void(0)" onclick="getSearchInfo('http://localhost:99/index.php/customer/index/0/10/CUSTOMER_ID/DESC/');">Tìm</a>
+                            <a class="btn btn-sm btn-primary" href="javascript:void(0)" onclick="">Tìm</a>
                         </div>
                     </div>
                 </form>
-                
+
                 <div class="table-responsive">
 
                     <table class="table table-hover">

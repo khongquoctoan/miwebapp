@@ -5,13 +5,26 @@ namespace App\Http\Controllers\Managers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use Yajra\Datatables\Facades\Datatables;
+//use Yajra\Datatables\Facades\Datatables;
 use App\Http\Controllers\Managers\UsersController;
 use App\Http\Controllers\Managers\NotesController;
 use DateTime;
+//use App\Repositories\CustomerRepository as Customers;
 
 class CustomersController extends Controller {
 
+//    private $customers;
+//
+//    public function __construct(Customers $customer) {
+//        $this->customers = $customer;
+//    }
+//
+//    public function test() {
+//        echo '<pre>';
+//        return $this->customers->paginate(10, ['id', 'firstName']);//response()->json($this->customers->paginate(10, ['id', 'firstName']));
+////        return response()->json($this->customers->all());
+//    }
+    
     //Lấy danh sách khách hàng
     public function getDataTables() {
         $getData = DB::table('customers')->select(DB::raw("customers.*"))->where('status', 'publish');
@@ -41,15 +54,25 @@ class CustomersController extends Controller {
         $getData = DB::table('customers')->where([['status', '=', 'publish'], ['id', '=', $rowId]]);
         if ($getData->count()) {
             $getData    = $getData->get();
+            $getData    = $getData[0];
+            
+            //Get current tags customer
+            $getData->tags_list = (new NotesController())->getTagsByListID(explode(',', $getData->tags_list));
+            
             $getNotes   = (new NotesController())->getNotes($rowId, 0);
             $getTags    = (new NotesController())->getTags();
-            return ['status' => true, 'info' => $getData[0], 'notes' => $getNotes['list'], 'tags' => $getTags['list']];
+            
+            return ['status' => true, 'info' => $getData, 'notes' => $getNotes['list'], 'tags' => $getTags['list']];
         }
         return ['status' => false];
     }
     
     //Thêm mới khách hàng
     public function insertCustomer(Request $request) {
+        $tags = [];
+        foreach($request->tags_list as $tag){
+            $tags[] = $tag['id'];
+        }
         $getData = [
             'firstName' => $request->firstName,
             'lastName' => $request->lastName,
@@ -60,6 +83,7 @@ class CustomersController extends Controller {
             'email' => $request->email,
             'address' => $request->address,
             'note' => $request->note,
+            'tags_list' => implode(',', $tags),
             'created_at' => new DateTime()
         ];
         $status = DB::table('customers')->insertGetId($getData);
@@ -71,6 +95,10 @@ class CustomersController extends Controller {
     
     //Cập nhật khách hàng
     public function updateCustomer($customerId, Request $request) {
+        $tags = [];
+        foreach($request->tags_list as $tag){
+            $tags[] = $tag['id'];
+        }
         $getData = [
             'firstName' => $request->firstName,
             'lastName' => $request->lastName,
@@ -81,6 +109,7 @@ class CustomersController extends Controller {
             'email' => $request->email,
             'address' => $request->address,
             'note' => $request->note,
+            'tags_list' => implode(',', $tags),
             'updated_at' => new DateTime(),
             'updated_by' => (new UsersController)->getUserId()
         ];

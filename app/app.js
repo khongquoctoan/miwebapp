@@ -4,7 +4,8 @@ define(['services/routeResolver'], function () {
     var app = angular.module('MIApp', 
                     [   'ui.router', 'ui.bootstrap', 
                         'routeResolverServices', 'ngStorage', 'breeze.angular',
-                        'angular-loading-bar', 'ui.select2' , 'angularMoment'
+                        'angular-loading-bar', 'angularMoment',
+                        'ngTagsInput'
                     ]
                 );
     app.constant('urls', {
