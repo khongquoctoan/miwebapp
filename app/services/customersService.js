@@ -58,6 +58,18 @@ define(['app'], function (app) {
                 return status.data;
             });
         };
+        
+        factory.duplicateCustomer = function (id) {
+            return $http.get(serviceBase + 'duplicateCustomer/' + id).then(function (status) {
+                return status.data;
+            });
+        };
+        
+        factory.deleteMultiCustomer = function (cusSelected) {
+            return $http.post(serviceBase + 'deleteMultiCustomer', {list:cusSelected}).then(function (status) {
+                return status.data;
+            });
+        };
 
         factory.getCustomer = function (id) {
             //then does not unwrap data so must go through .data property

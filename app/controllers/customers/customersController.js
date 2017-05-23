@@ -28,10 +28,64 @@ define(['app'], function (app) {
             $state.go($state.current, {}, {reload: true});
         };
         vm.pageChanged = function (page) {
-            vm.currentPage = page;
-            getCustomersSummary();
+            vm.pageSize = page;
+            getCustomersSummary(1, true);
         };
-
+        
+        vm.checkAllCus = function($event){
+            var checkbox = $event.target;
+            if(checkbox.checked){
+                vm.checkCus = vm.customers.map(function(item) { return item.id; });
+            }else{
+                vm.checkCus = [];
+            }
+            
+        };
+        vm.duplicateCustomer = function(){
+            if(!vm.checkCus.length){
+                return showMessageBottomRight('Chưa chọn khách hàng cần xóa!', 'error');
+            }
+//            console.log(vm.checkCus);
+            var id = vm.checkCus[0];
+            var cust = getCustomerById(id);
+            var custName = cust.lastName + ' ' + cust.firstName;
+            showMessageComfirm('Bạn muốn sao chép khách khách hàng "'+custName+'" ???', 
+                function(){
+                    customersService.duplicateCustomer(id).then(function (newId) {
+                        showMessageBottomRight('Đã sao chép thành công!', 'success');    
+                        $state.go('customerDetail',{customerId:newId});
+//                        vm.reloadPage();
+                        
+                    }, function (error) {
+//                        $window.alert('Error deleting customer: ' + error.message);
+                        showMessageBottomRight('Không thể thực thi!', 'error');    
+                    });
+                },
+                function(){
+                }
+            );
+        };
+        
+        vm.deleteMultiCustomer = function(){
+            if(!vm.checkCus.length){
+                return showMessageBottomRight('Chưa chọn khách hàng cần xóa!', 'error');
+            }
+//            console.log(vm.checkCus);
+            showMessageComfirm('Bạn có chắc muốn xóa '+(vm.checkCus.length)+' khách hàng đã chọn khỏi hệ thống???', 
+                function(){
+                    customersService.deleteMultiCustomer(vm.checkCus).then(function () {
+                        showMessageBottomRight('Khách hàng được chọn đã xóa khỏi hệ thống!', 'success');    
+                        vm.reloadPage();
+                    }, function (error) {
+                        showMessageBottomRight('Không thể thực thi!', 'error');    
+                    });
+                },
+                function(){
+//                    showMessageBottomRight('Bạn đã nhấn Cancel!', 'error');
+                }
+            );
+        };
+        
         vm.deleteCustomer = function (id) {
             var cust = getCustomerById(id);
             var custName = cust.firstName + ' ' + cust.lastName;
@@ -49,36 +103,6 @@ define(['app'], function (app) {
                     showMessageBottomRight('Bạn đã nhấn Cancel!', 'error');
                 }
             );
-//            if (!authService.user.isAuthenticated) {
-//                $location.path(authService.loginPath + $location.$$path);
-//                return;
-//            }
-//
-//            var cust = getCustomerById(id);
-//            var custName = cust.firstName + ' ' + cust.lastName;
-
-//            var modalOptions = {
-//                closeButtonText: 'Cancel',
-//                actionButtonText: 'Delete Customer',
-//                headerText: 'Delete ' + custName + '?',
-//                bodyText: 'Are you sure you want to delete this customer?'
-//            };
-
-//            modalService.showModal({}, modalOptions).then(function (result) {
-//                if (result === 'ok') {
-//                    customersService.deleteCustomer(id).then(function () {
-//                        for (var i = 0; i < vm.customers.length; i++) {
-//                            if (vm.customers[i].id === id) {
-//                                vm.customers.splice(i, 1);
-//                                break;
-//                            }
-//                        }
-//                        filterCustomers(vm.searchText);
-//                    }, function (error) {
-//                        $window.alert('Error deleting customer: ' + error.message);
-//                    });
-//                }
-//            });
         };
         
         vm.navigate = function (url) {
@@ -167,7 +191,6 @@ define(['app'], function (app) {
                 endIndex: endIndex,
             };
         }
-
 
         init();
     };

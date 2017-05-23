@@ -5,7 +5,7 @@ define(['services/routeResolver'], function () {
                     [   'ui.router', 'ui.bootstrap', 
                         'routeResolverServices', 'ngStorage', 'breeze.angular',
                         'angular-loading-bar', 'angularMoment',
-                        'ngTagsInput'
+                        'ngTagsInput' , 'checklist-model'
                     ]
                 );
     app.constant('urls', {

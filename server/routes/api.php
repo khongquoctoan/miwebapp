@@ -31,6 +31,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Managers'], function () {
         Route::post('/postCustomer', ['as' => 'customer-insert', 'uses' => 'CustomersController@insertCustomer']);
         Route::post('/putCustomer/{id}', ['as' => 'customer-update', 'uses' => 'CustomersController@updateCustomer']);
         Route::get('/deleteCustomer/{id}', ['as' => 'customer-delete', 'uses' => 'CustomersController@deleteCustomer']);
+        Route::get('/duplicateCustomer/{id}', ['as' => 'customer-duplicate', 'uses' => 'CustomersController@duplicateCustomer']);
+        Route::post('/deleteMultiCustomer', ['as' => 'customer-deletes', 'uses' => 'CustomersController@deleteMultiCustomer']);
         
         Route::put('/putUser/{id}', ['as' => 'user-update', 'uses' => 'UsersController@updateUser']);
         Route::get('/getTags', ['as' => 'tags-get', 'uses' => 'NotesController@getTags']);

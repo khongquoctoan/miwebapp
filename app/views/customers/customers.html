@@ -18,13 +18,13 @@
                     <div class="row cursearch">
                         <div class="col-sm-6 col-md-5 mi-form">
                             <a class="btn btn-sm btn-primary" title="Thêm mới" href="#/module/customer" onclick=""><i class="icon wb-plus-circle" aria-hidden="true"></i></a>
-                            <a class="btn btn-sm btn-primary" title="Duplicate" href="javascript:void(0)" onclick=""><i class="icon wb-copy" aria-hidden="true"></i></a>
-                            <a class="btn btn-sm btn-primary" title="Xóa" href="javascript:void(0)" onclick=""><i class="icon wb-trash" aria-hidden="true"></i></a>
+                            <a class="btn btn-sm btn-primary" ng-disabled="!vm.checkCus.length||vm.checkCus.length>1" title="Duplicate" href="javascript:void(0)" ng-click="vm.duplicateCustomer();"><i class="icon wb-copy" aria-hidden="true"></i></a>
+                            <a class="btn btn-sm btn-primary" ng-disabled="!vm.checkCus.length" title="Xóa" href="javascript:void(0)" ng-click="vm.deleteMultiCustomer()"><i class="icon wb-trash" aria-hidden="true"></i></a>
                             <a class="btn btn-sm btn-primary" title="Download" href="javascript:void(0)" onclick=""><i class="icon wb-download" aria-hidden="true"></i></a>
                             <a class="btn btn-sm btn-primary" title="Upload" href="javascript:void(0)" onclick=""><i class="icon wb-upload" aria-hidden="true"></i></a>
                         </div>
                         <div class="col-sm-6 col-md-2 mi-form">
-                            <select class="form-control input-sm" id="searchColumn[]" name="searchColumn[]" style="max-width:">
+                            <select class="form-control input-sm" id="searchColumn[]" name="searchColumn[]">
                                 <option value=""> - Tìm kiếm theo - </option>
                                 <option value="customer.CUSTOMER_ID">ID KH</option>
                                 <option value="customer.REG_DATE">Ngày tạo</option>
@@ -36,7 +36,7 @@
                             </select>
                         </div>
                         <div class="col-sm-6 col-md-2 mi-form">
-                            <select class="form-control input-sm" id="searchType[]" name="searchType[]" style="max-width:">
+                            <select class="form-control input-sm" id="searchType[]" name="searchType[]">
                                 <option value="like">Gần giống</option>
                                 <option value="like_left">Gần giống bên trái</option>
                                 <option value="like_right">Gần giống bên phải</option>
@@ -66,11 +66,9 @@
                             <tr>
                                 <th>
                                     <span class="checkbox-custom checkbox-default">
-                                        <input type="checkbox" name="ipCusListCheckAll" ng-model="vm.checkall" >
+                                        <input type="checkbox" name="ipCusListCheckAll" ng-click="vm.checkAllCus($event)" value="1" >
                                         <label for="ipCusListCheckAll"></label>
                                     </span>
-                                    {{vm.checkCus}}
-                                    {{vm.checkCus.length}}
                                 </th>
                                 <th>Mã KH</th>
                                 <th>Tên KH</th>
@@ -96,7 +94,7 @@
                             <tr data-ng-repeat="customer in vm.customers">
                                 <td>
                                     <span class="checkbox-custom checkbox-default">
-                                        <input type="checkbox" ng-true-value="{{customer.id}}" name="ipCusListCheck{{customer.id}}" ng-model="vm.checkCus[$index]" ng-checked="vm.checkall">
+                                        <input type="checkbox" checklist-model="vm.checkCus" checklist-value="customer.id" name="ipCusListCheck{{customer.id}}">
                                         <label for="ipCusListCheck{{customer.id}}"></label>
                                     </span>
                                 </td>
@@ -118,7 +116,7 @@
                 <div class="row" >
                     <div class="table-footer">
                         <div class="col-md-2">
-                            <select class="form-control input-sm" data-placeholder="Select action" onchange="">
+                            <select class="form-control input-sm" ng-model="vm.pageSize" ng-change="vm.pageChanged(vm.pageSize)">
                                 <option value="5">05</option>
                                 <option value="10">10</option>
                                 <option value="15">15</option>
