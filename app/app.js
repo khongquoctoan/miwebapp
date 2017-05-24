@@ -102,14 +102,9 @@ define(['services/routeResolver'], function () {
                 }*/
         );
         
-        //Customer
+        //Customer List
         $stateProvider.state(
             route.resolve('module','customers','/customers','Customers', 'customers/', 'vm', true)
-        );
-        
-        //User info
-        $stateProvider.state(
-            route.resolve('module','userInfo','/userinfo','UserInfo', 'users/', 'vm', true)
         );
 
         //Customer edit/detail
@@ -118,6 +113,24 @@ define(['services/routeResolver'], function () {
         );
         $stateProvider.state(
             route.resolve('module','customerAdd','/customer','CustomerAdd', 'customers/', 'vm', true)
+        );
+
+        //User list
+        $stateProvider.state(
+            //parentModule, moduleName, moduleUrl, baseName, path, controllerAs, secure
+            route.resolve('module','users','/users','Users', 'users/', 'vm', true)
+        );
+
+        $stateProvider.state(
+            route.resolve('module','userDetail','/user/:userId','UserAdd', 'users/', 'vm', true)
+        );
+        $stateProvider.state(
+            route.resolve('module','userAdd','/user','UserAdd', 'users/', 'vm', true)
+        );
+        
+        //User info
+        $stateProvider.state(
+            route.resolve('module','userInfo','/userinfo','UserInfo', 'users/', 'vm', true)
         );
 
         $urlRouterProvider.otherwise("/module/dashboard");

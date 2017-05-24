@@ -31,12 +31,23 @@
                         </div>
 
                         <div class="col-sm-6 col-md-4 mi-form">
-                            <h5>Di động</h5>
-                            <input type="text" class="form-control input-sm" ng-model="vm.customer.mobile" placeholder="" name="mobile" />
+                            <h5>Di động {{vm.customer.mobile.length}}</h5>
+                            <div class="input-group">
+                                <input type="text" class="form-control input-sm" ng-model="vm.customer.mobile" placeholder="" name="mobile" />
+                                <span class="input-group-btn">
+                                    <button type="button" ng-disabled="!vm.customer.mobile || vm.customer.mobile.length<3 || vm.customer.mobile.length>12" class="btn btn-sm btn-info"><i class="icon fa-phone" aria-hidden="true"></i></button>
+                                </span>
+                            </div>
                         </div>
                         <div class="col-sm-6 col-md-4 mi-form">
                             <h5>Điện thoại bàn</h5>
-                            <input type="text" class="form-control input-sm" ng-model="vm.customer.phone" placeholder="" name="phone" />
+                            
+                            <div class="input-group">
+                                <input type="text" class="form-control input-sm" ng-model="vm.customer.phone" placeholder="" name="phone" />
+                                <span class="input-group-btn">
+                                    <button type="button" ng-disabled="!vm.customer.phone || vm.customer.phone.length<3 || vm.customer.phone.length>12" class="btn btn-sm btn-info"><i class="icon fa-phone" aria-hidden="true"></i></button>
+                                </span>
+                            </div>
                         </div>
                         <div class="col-sm-6 col-md-4 mi-form">
                             <h5>Email</h5>
@@ -79,7 +90,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tags</label>
                                 <div class="col-sm-9">
-                                    <tags-input class="bootstrap-tags-input" placeholder="Thêm tags" ng-model="vm.note.tags" display-property="tag_name" key-property="id" add-from-autocomplete-only="true" replace-spaces-with-dashes="false">
+                                    <tags-input ng-required="vm.note.content" class="bootstrap-tags-input" placeholder="Thêm tags" ng-model="vm.note.tags" display-property="tag_name" key-property="id" add-from-autocomplete-only="true" replace-spaces-with-dashes="false">
                                         <auto-complete source="vm.loadTags($query)" min-length="0" debounce-delay="0" load-on-focus="true" load-on-empty="true" max-results="10"></auto-complete>
                                     </tags-input>
                                 </div>

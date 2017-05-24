@@ -100,8 +100,8 @@
                                 </td>
                                 <td>{{customer.customerCode}}</td>
                                 <td>{{customer.lastName + ' ' + customer.firstName}}</td>
-                                <td>{{customer.mobile}}</td>
-                                <td>{{customer.phone}}</td>
+                                <td><button type="button" class="btn btn-icon btn-xs btn-info btn-round" ng-if="customer.mobile"><i class="icon fa-phone" aria-hidden="true"></i></button> {{customer.mobile}}</td>
+                                <td><button type="button" class="btn btn-icon btn-xs btn-info btn-round" ng-if="customer.phone"><i class="icon fa-phone" aria-hidden="true"></i></button> {{customer.phone}}</td>
                                 <td>{{customer.email}}</td>
                                 <td>
                                     <a class="btn btn-floating btn-success btn-xs" href="#/module/customer/{{customer.id}}"><i class="icon wb-pencil" aria-hidden="true" style="margin-top:4px"></i></a>

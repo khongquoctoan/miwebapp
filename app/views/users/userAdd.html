@@ -1,0 +1,143 @@
+<div class="page">
+    <div class="page-header">
+        <h1 class="page-title">Thông tin người dùng</h1>
+        <div class="page-header-actions">
+            <button type="button" ng-click="vm.reloadPage()" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Refresh">
+                <i class="icon wb-refresh" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Setting">
+                <i class="icon wb-settings" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="page-content">
+        <!-- Panel -->
+        <div class="panel">
+            <div class="panel-body container-fluid">
+                <form name="frmUserInfo" method="post" ng-submit="frmUserInfo.$valid && vm.updateOrAdd($event)" novalidate>
+                    <div class="row row-lg">
+                        <div class="col-sm-6 col-md-12 mi-form">
+                            <a href="#/module/users" class="btn btn-default btn-sm pull-left">Quay lại</a>  
+                            <button type="submit" class="btn btn-primary btn-sm pull-right" ng-disabled="frmUserInfo.$invalid || !frmUserInfo.$dirty" >{{vm.user.id ? 'Cập nhật':'Thêm mới'}}</button>
+                        </div>
+                    </div>
+                    <div class="row row-lg">
+                        <div class="col-sm-6">
+                            <h4>Cơ bản</h4>
+                            <div class="row row-lg">
+                                <div class="col-sm-6 mi-form {{frmUserInfo.firstName.$touched && frmUserInfo.firstName.$invalid ? 'has-error' : ''}}">
+                                    <label class="control-label">Tên</label>
+                                    <input type="text" required="" class="form-control input-sm" data-ng-model="vm.user.firstName" autocomplete="off" placeholder="" name="firstName" />
+                                </div>
+
+                                <div class="col-sm-6 mi-form {{frmUserInfo.lastName.$touched && frmUserInfo.lastName.$invalid ? 'has-error' : ''}}">
+                                    <label class="control-label">Họ</label>
+                                    <input type="text" class="form-control input-sm" required="" data-ng-model="vm.user.lastName" autocomplete="off" placeholder="" name="lastName" />
+                                </div>
+                                <div class="col-sm-6 mi-form {{frmUserInfo.userCode.$touched && frmUserInfo.userCode.$invalid ? 'has-error' : ''}}">
+                                    <label class="control-label">Mã người dùng</label>
+                                    <input type="text" class="form-control input-sm" required="" ng-model="vm.user.userCode" autocomplete="off" placeholder="" name="userCode" />
+                                </div>
+                                <div class="col-sm-6 mi-form {{frmUserInfo.status.$touched && frmUserInfo.status.$invalid ? 'has-error' : ''}}">
+                                    <label class="control-label">Trạng thái</label>
+                                    <select ng-model="vm.user.status" name="status" class="form-control" ng-required="true">
+                                        <option value="pending">Chờ kích hoạt</option>
+                                        <option value="active">Kích hoạt</option>
+                                        <option value="lock">Khóa</option>
+                                    </select>
+                                </div>
+                                <div class="col-sm-6 mi-form {{frmUserInfo.email.$touched && frmUserInfo.email.$invalid ? 'has-error' : ''}}">
+                                    <h5>Email</h5>
+                                    <input type="email" ng-required="true" class="form-control input-sm" ng-model="vm.user.email" autocomplete="off" placeholder="Email đăng nhập hệ thống" name="email" />
+                                </div>  
+
+                                <div class="col-sm-6 mi-form">
+                                    <h5>Mật khẩu</h5>
+                                    <div class="input-group" ng-show="vm.user.id">
+                                        <input type="text" style="height:32px;" class="form-control" ng-required="vm.user.changepassword" ng-disabled="!vm.user.changepassword" ng-model="vm.user.passwordnew" name="password" placeholder="Check vào thay đổi mật khẩu" autocomplete="off" />
+                                        <span class="input-group-addon">
+                                            <span class="checkbox-custom checkbox-default" style="height: 18px">
+                                                <input type="checkbox" name="inputCheckboxChangePassword" ng-model="vm.user.changepassword" checked="">
+                                                <label for="inputCheckboxChangePassword"></label>
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <input type="text" ng-show="!vm.user.id" ng-required="!vm.user.id" class="form-control input-sm" autocomplete="off" ng-model="vm.user.password" placeholder="Mật khẩu đăng nhập hệ thống" name="password" />
+                                </div>  
+
+                                <div class="col-sm-6 mi-form {{frmUserInfo.role.$touched && frmUserInfo.role.$invalid ? 'has-error' : ''}}">
+                                    <label class="control-label">Loại tài khoản</label>
+                                    <select ng-model="vm.user.role" name="role" class="form-control" ng-required="true">
+                                        <option value="superadmin">Superadmin</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="user">User</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-sm-6 mi-form">
+                                    <label class="control-label">Phân quyền</label>
+                                    <select class="form-control" name="user_type"
+                                    ng-options="option.name for option in vm.userType track by option.id"
+                                    ng-model="vm.user.user_type"></select>
+                                </div>
+                                <div class="col-sm-6 mi-form">
+                                    <label class="control-label">Di động</label>
+                                    <input type="text" class="form-control input-sm" ng-model="vm.user.mobile" autocomplete="off" placeholder="" name="mobile" />
+                                </div>
+
+                                <div class="col-sm-6 mi-form">
+                                    <label class="control-label">Điện thoại bàn</label>
+                                    <input type="text" class="form-control input-sm" ng-model="vm.user.phone" autocomplete="off" placeholder="" name="phone" />
+                                </div>
+
+                                <div class="col-sm-12 mi-form">
+                                    <label class="control-label">Địa chỉ</label>
+                                    <input type="text" class="form-control input-sm" ng-model="vm.user.address" autocomplete="off" placeholder="" name="address" />
+                                </div>
+                                <div class="col-sm-12 mi-form">
+                                    <label class="control-label">Ghi chú người dùng</label>
+                                    <input type="text" class="form-control input-sm" ng-model="vm.user.note" autocomplete="off" placeholder="" name="note" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <h4>Hệ thống</h4>
+                            <div class="row row-lg">
+                                <div class="col-sm-12 mi-form">
+                                    <label class="control-label">Công ty</label>
+                                    <select class="form-control" name="user_group"
+                                    ng-options="option.groupName for option in vm.groups track by option.id"
+                                    ng-model="vm.user.user_group"></select>
+                                </div>
+                                <div class="col-sm-6 mi-form" ng-show="vm.user.id">
+                                    <label class="control-label">Thời điểm tạo</label>
+                                    <input type="text" class="form-control input-sm" ng-model="vm.user.created_at" autocomplete="off" placeholder="" name="created_at" ng-readonly="true" />
+                                </div>
+                                <div class="col-sm-6 mi-form" ng-show="vm.user.id">
+                                    <label class="control-label">Cập nhật lần cuối</label>
+                                    <input type="text" class="form-control input-sm" ng-model="vm.user.updated_at" autocomplete="off" placeholder="" name="updated_at" ng-readonly="true" />
+                                </div>
+                                <div class="col-sm-6 mi-form">
+                                    <label class="control-label">Máy nhánh</label>
+                                    <input type="text" class="form-control input-sm" ng-model="vm.user.extension" autocomplete="off" placeholder="" name="extension" />
+                                </div>
+                                <div class="col-sm-6 mi-form">
+                                    <label class="control-label">Hàng đợi (Queues)</label>
+                                    <input type="text" class="form-control input-sm" ng-model="vm.user.queues" autocomplete="off" placeholder="" name="queues" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-lg">
+                        <div class="col-sm-6 col-md-12 mi-form">
+                            <a href="#/module/users" class="btn btn-default btn-sm pull-left">Quay lại</a>  
+                            <button type="submit" class="btn btn-primary btn-sm pull-right" ng-disabled="frmUserInfo.$invalid || !frmUserInfo.$dirty" >{{vm.user.id ? 'Cập nhật':'Thêm mới'}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>

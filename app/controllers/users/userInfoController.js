@@ -16,7 +16,7 @@ define(['app'], function (app) {
                 showMessageBottomRight('Thông tin tài khoản không tồn tại!','error');
                 return ;
             }
-            authService.updateUser(vm.userinfo).then(function (res) {
+            authService.updateUserProfile(vm.userinfo).then(function (res) {
                 if(res.status){
                     showMessageBottomRight('Đã cập nhật tài khoản thành công!','success');
                 }else{

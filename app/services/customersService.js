@@ -110,7 +110,7 @@ define(['app'], function (app) {
             return $http.get(serviceBase + resource).then(function (response) {
 //                console.log(response);
                 var custs = response.data.data, totalRecords = response.data.totalRecords;
-                extendCustomers(custs);
+//                extendCustomers(custs);
                 return {
                     totalRecords: totalRecords,//parseInt(response.headers('X-InlineCount')),
                     results: custs

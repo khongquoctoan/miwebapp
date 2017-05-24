@@ -24,4 +24,14 @@ class User extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function userType()
+    {
+        return $this->hasOne('App\Models\UserType', 'id', 'typeId')->select('id', 'name');
+    }
+    
+    public function userGroup()
+    {
+        return $this->hasOne('App\Models\Group', 'id', 'groupId')->select('id', 'groupName');
+    }
 }
