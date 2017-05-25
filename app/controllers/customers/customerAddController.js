@@ -71,33 +71,32 @@ define(['app'], function (app) {
             });
         };
         
+        vm.cusUpdateTags = function (){
+            if(vm.customer.id){
+                console.log(vm.customer.tags_list);
+                customersService.updateCusTags(vm.customer).then(function (res) {
+                    console.log(res);
+                });
+            }
+            
+        };
+        
         function init() {
-            vm.list_of_string = ['tag1', 'tag2'];
-            vm.select2Options = {
-                'multiple': true,
-                'simple_tags': true,
-                'tags': ['tag1', 'tag2', 'tag3', 'tag4']  // Can be empty list.
-            };
-//            vm.tags_list_A =[{id:26,tag_name:'CBU1'},{id:27,tag_name:'CBU2'}];
+            
             if (customerId > 0) {
                 customersService.getCustomer(customerId).then(function (res) {
-//                  res.info.tags_list = (res.info.tags_list).split(',');
-//                  res.info.tags_list =  [
-//                                {id:26, tag_name: "CBU1"},
-//                                
-//                              ];
-                    
                     vm.customer = res.info;
                     vm.tags = res.tags;
                     vm.notes = res.notes;
-                    console.log(res);
-                    console.log(vm.customer);
+//                    console.log(res);
+//                    console.log(vm.customer);
                 });
             }else{
                 notesService.getTags().then(function (res) {
                     vm.tags = res;
                 });
             }
+            
         }
 
         init();

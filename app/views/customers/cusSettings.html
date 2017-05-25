@@ -1,0 +1,55 @@
+<div class="page">
+    <div class="page-header">
+        <h1 class="page-title">Cài đặt khách hàng</h1>
+        <div class="page-header-actions">
+            <button type="button" ng-click="vm.reloadPage()" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Refresh">
+                <i class="icon wb-refresh" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Setting">
+                <i class="icon wb-settings" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="page-content">
+        <!-- Panel -->
+        <div class="panel">
+            <div class="panel-body container-fluid">
+<!--                <div class="row row-lg">
+                
+                    <div class="col-md-6">
+                        <div fb-builder="default"></div>
+                        <div class="panel-footer">
+                            <div class="checkbox">
+                                <label><input type="checkbox" ng-model="vm.isShowScope" />
+                                    Show scope
+                                </label>
+                            </div>
+                            <pre ng-if="vm.isShowScope">{{vm.form}}</pre>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div fb-components></div>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <h2>Form</h2>
+                    <hr/>
+                    <form class="form-horizontal">
+                        <div ng-model="vm.input" fb-form="default" fb-default="defaultValue"></div>
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                                <input type="submit" ng-click="vm.submit()" class="btn btn-default"/>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="checkbox">
+                        <label><input type="checkbox" ng-model="vm.isShowScope" ng-init="vm.isShowScope = true" />
+                            Show scope
+                        </label>
+                    </div>
+                    <pre ng-if="vm.isShowScope">{{vm.input}}</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

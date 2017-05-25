@@ -52,6 +52,11 @@ define(['app'], function (app) {
             return $http.post(serviceBase + 'putCustomer/' + customer.id, customer)
             .then(function (status) {return status.data;},function(error){});
         };
+        
+        factory.updateCusTags = function (customer) {
+            return $http.post(serviceBase + 'putCustomerTags/' + customer.id, customer)
+            .then(function (status) {return status.data;},function(error){});
+        };
 
         factory.deleteCustomer = function (id) {
             return $http.get(serviceBase + 'deleteCustomer/' + id).then(function (status) {
@@ -88,22 +93,6 @@ define(['app'], function (app) {
             });
         };
 
-        function extendCustomers(customers) {
-            var custsLen = customers.length;
-            //Iterate through customers
-            for (var i = 0; i < custsLen; i++) {
-                var cust = customers[i];
-                if (!cust.orders) continue;
-
-                var ordersLen = cust.orders.length;
-                for (var j = 0; j < ordersLen; j++) {
-                    var order = cust.orders[j];
-                    order.orderTotal = order.quantity * order.price;
-                }
-                cust.ordersTotal = ordersTotal(cust);
-            }
-        }
-
         function getPagedResource(baseResource, pageIndex, pageSize) {
             var resource = baseResource;
             resource += (arguments.length == 3) ? buildPagingUri(pageIndex, pageSize) : '';
@@ -122,22 +111,6 @@ define(['app'], function (app) {
             var uri = '?$top=' + pageSize + '&$skip=' + (pageIndex * pageSize);
             return uri;
         }
-
-        // is this still used???
-        function orderTotal(order) {
-            return order.quantity * order.price;
-        };
-
-        function ordersTotal(customer) {
-            var total = 0;
-            var orders = customer.orders;
-            var count = orders.length;
-
-            for (var i = 0; i < count; i++) {
-                total += orders[i].orderTotal;
-            }
-            return total;
-        };
 
         return factory;
     };

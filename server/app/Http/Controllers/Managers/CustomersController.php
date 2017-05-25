@@ -117,6 +117,23 @@ class CustomersController extends Controller {
         }
         return ['status' => false];
     }
+    
+    public function updateCustomerTags($customerId, Request $request) {
+        $tags = [];
+        foreach ($request->tags_list as $tag) {
+            $tags[] = $tag['id'];
+        }
+        $getData = [
+            'tags_list' => implode(',', $tags),
+            'updated_at' => new DateTime(),
+            'updated_by' => (new UsersController)->getUserId()
+        ];
+        $status = DB::table('customers')->where('id', $customerId)->update($getData);
+        if ($status) {
+            return ['status' => true];
+        }
+        return ['status' => false];
+    }
 
     //Xóa khách hàng
     public function deleteCustomer($customerId) {
