@@ -35,6 +35,9 @@
 .bold{
     font-weight: bold;
 }
+.italic{
+    font-style: italic;
+}
 .mi-form{
     margin-bottom: 15px;
 }

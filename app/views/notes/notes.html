@@ -1,14 +1,13 @@
 <div class="page">
     <div class="page-header">
-        <h1 class="page-title">Khách hàng</h1>
+        <h1 class="page-title">Lịch sử tiếp nhận --{{urls.BASE_API}}</h1>
         <div class="page-header-actions">
             <button type="button" ng-click="vm.reloadPage()" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Refresh">
                 <i class="icon wb-refresh" aria-hidden="true"></i>
             </button>
-<!--            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Setting">
+            <button type="button" class="btn btn-sm btn-icon btn-inverse btn-round" data-toggle="tooltip" data-original-title="Setting">
                 <i class="icon wb-settings" aria-hidden="true"></i>
-            </button>-->
-            <a class="btn btn-sm btn-icon btn-inverse btn-round" href="#/module/cusSettings" data-toggle="tooltip" data-original-title="Setting"><i class="icon wb-settings" aria-hidden="true"></i></a>
+            </button>
         </div>
     </div>
     <div class="page-content">
@@ -18,21 +17,17 @@
                 <form id="frmSearchMore" name="frmSearchMore" method="post">
                     <div class="row cursearch">
                         <div class="col-sm-6 col-md-5 mi-form">
-                            <a class="btn btn-sm btn-primary" title="Thêm mới" href="#/module/customer" onclick=""><i class="icon wb-plus-circle" aria-hidden="true"></i></a>
-                            <a class="btn btn-sm btn-primary" ng-disabled="!vm.checkCus.length||vm.checkCus.length>1" title="Duplicate" href="javascript:void(0)" ng-click="vm.duplicateCustomer();"><i class="icon wb-copy" aria-hidden="true"></i></a>
-                            <a class="btn btn-sm btn-primary" ng-disabled="!vm.checkCus.length" title="Xóa" href="javascript:void(0)" ng-click="vm.deleteMultiCustomer()"><i class="icon wb-trash" aria-hidden="true"></i></a>
-                            <a class="btn btn-sm btn-primary" title="Download" href="javascript:void(0)" onclick=""><i class="icon wb-download" aria-hidden="true"></i></a>
-                            <a class="btn btn-sm btn-primary" title="Upload" href="javascript:void(0)" onclick=""><i class="icon wb-upload" aria-hidden="true"></i></a>
+                            <a class="btn btn-sm btn-primary" ng-disabled="!vm.checkCus.length" title="Xóa" href="javascript:void(0)" ng-click="vm.deleteMultiNote()"><i class="icon wb-trash" aria-hidden="true"></i></a>
+                            <a class="btn btn-sm btn-primary" title="Download" href="{{urls.BASE_API}}notes/download" target="_blank" ><i class="icon wb-download" aria-hidden="true"></i></a>
                         </div>
                         <div class="col-sm-6 col-md-2 mi-form">
                             <select class="form-control input-sm" id="searchColumn[]" name="searchColumn[]">
                                 <option value=""> - Tìm kiếm theo - </option>
-                                <option value="customer.CUSTOMER_ID">ID KH</option>
-                                <option value="customer.REG_DATE">Ngày tạo</option>
-                                <option value="customer.CUSTOMER_NAME">Tên Khách hàng</option>
-                                <option value="customer.TELEPHONE">SĐT 1</option>
-                                <option value="customer.SECOND_TELE">SĐT 2</option>
-                                <option value="customer.THIRD_TELE">SĐT 3</option>
+                                <option value="note.CUSTOMER_ID">ID</option>
+                                <option value="note.REG_DATE">Thời điểm</option>
+                                <option value="note.CUSTOMER_NAME">Nội dung</option>
+                                <option value="note.TELEPHONE">Tags</option>
+                                <option value="note.SECOND_TELE">Nhân viên xử lý</option>
                                 <option value="order_status.NAME">Trạng thái</option>
                             </select>
                         </div>
@@ -64,49 +59,74 @@
 
                     <table class="table table-hover">
                         <thead>
-                            <tr>
+                            <tr class="active">
                                 <th>
                                     <span class="checkbox-custom checkbox-primary">
                                         <input type="checkbox" name="ipCusListCheckAll" ng-click="vm.checkAllCus($event)" value="1" >
                                         <label for="ipCusListCheckAll"></label>
                                     </span>
                                 </th>
-                                <th class="col-md-2">Mã KH</th>
-                                <th class="col-md-3">Tên KH</th>
-                                <th class="col-md-2">Di động</th>
-                                <th class="col-md-2">Điện thoại bàn</th>
-                                <th class="col-md-2">Email</th>
-                                <th class="col-md-1"></th>
+                                <th>ID</th>
+                                <th>Thời điểm</th>
+                                <th class="col-md-3">Nội dung</th>
+                                <th class="col-md-2">Tags</th>
+                                <th>Nhân viên xử lý</th>
+                                <th>Trạng thái</th>
+                                <th style="width: 48px"></th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
                                 <th></th>
-                                <th>Mã KH</th>
-                                <th>Tên KH</th>
-                                <th>Di động</th>
-                                <th>Điện thoại bàn</th>
-                                <th>Email</th>
+                                <th>ID</th>
+                                <th>Thời điểm</th>
+                                <th>Nội dung</th>
+                                <th>Tags</th>
+                                <th>Xử lý</th>
+                                <th>Trạng thái</th>
                                 <th></th>
                             </tr>
                         </tfoot>
                         <tbody>
 
-                            <tr data-ng-repeat="customer in vm.customers" ng-mouseenter="viewIcon=true" ng-mouseleave="viewIcon=false">
+                            <tr data-ng-repeat="note in vm.notes" ng-mouseenter="viewIcon=true" ng-mouseleave="viewIcon=false"> 
                                 <td>
                                     <span class="checkbox-custom checkbox-primary">
-                                        <input type="checkbox" checklist-model="vm.checkCus" checklist-value="customer.id" name="ipCusListCheck{{customer.id}}">
-                                        <label for="ipCusListCheck{{customer.id}}"></label>
+                                        <input type="checkbox" checklist-model="vm.checkCus" checklist-value="note.id" name="ipCusListCheck{{note.id}}">
+                                        <label for="ipCusListCheck{{note.id}}"></label>
                                     </span>
                                 </td>
-                                <td>{{customer.customerCode}}</td>
-                                <td>{{customer.lastName + ' ' + customer.firstName}}</td>
-                                <td><button type="button" class="btn btn-icon btn-xs btn-info btn-round" ng-if="customer.mobile && viewIcon"><i class="icon fa-phone" aria-hidden="true"></i></button> {{customer.mobile}}</td>
-                                <td><button type="button" class="btn btn-icon btn-xs btn-info btn-round" ng-if="customer.phone && viewIcon"><i class="icon fa-phone" aria-hidden="true"></i></button> {{customer.phone}}</td>
-                                <td>{{customer.email}}</td>
+                                <td>{{note.case_number}}</td>
+                                <td>{{note.created_at}}</td>
+                                
                                 <td>
-                                    <a ng-if="viewIcon" class="btn btn-floating btn-success btn-xs" href="#/module/customer/{{customer.id}}"><i class="icon wb-pencil" aria-hidden="true" style="margin-top:4px"></i></a>
-                                    <button ng-if="viewIcon" type="button" ng-click="vm.deleteCustomer(customer.id)" class="btn btn-floating btn-danger btn-xs"><i class="icon wb-trash" aria-hidden="true"></i></button>
+                                    <div ng-if="note.content.length>50 && !note.isExpand">
+                                        <span class="cs-ellipsis width-300">
+                                        {{note.content}} 
+                                    </span>
+                                    <a href="javascript:void(0)" class="pull-right italic" ng-click="vm.seeMoreNote(note)"><small>Xem thêm</small></a>
+                                    </div>
+                                    <div ng-if="note.content.length <= 50 || note.isExpand">
+                                    {{note.content}}    
+                                    </div>
+                                </td>
+                                
+                                <td>
+                                    <div ng-if="note.note_tags.length>30 && !note.isExpand">
+                                        <span class="cs-ellipsis width-200">
+                                        {{note.note_tags}} 
+                                    </span>
+                                    <a href="javascript:void(0)" class="pull-right italic" ng-click="vm.seeMoreNote(note)"><small>Xem thêm</small></a>
+                                    </div>
+                                    <div ng-if="note.note_tags.length <= 30 || note.isExpand">
+                                    {{note.note_tags}}    
+                                    </div>
+                                </td>
+                                
+                                <td>{{note.agent_name}}</td>
+                                <td>{{note.case_status}}</td>
+                                <td>
+                                    <button ng-if="viewIcon" type="button" ng-click="vm.deleteNote(note.id)" class="btn btn-floating btn-danger btn-xs"><i class="icon wb-trash" aria-hidden="true"></i></button>
                                 </td>
                             </tr>
                         </tbody>
@@ -146,3 +166,19 @@
         </div>
     </div>
 </div>
+<style>
+.cs-ellipsis {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.width-300{
+    max-width: 300px;
+}
+.width-200{
+    max-width: 200px;
+}
+</style>
+    

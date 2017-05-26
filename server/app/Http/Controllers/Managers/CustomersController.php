@@ -68,14 +68,15 @@ class CustomersController extends Controller {
     //Thêm mới khách hàng
     public function insertCustomer(Request $request) {
         $tags = [];
+        if(isset($request->tags_list) && count($request->tags_list))
         foreach ($request->tags_list as $tag) {
             $tags[] = $tag['id'];
         }
         $getData = [
             'firstName' => $request->firstName,
             'lastName' => $request->lastName,
-            'customerCode' => $request->customerCode,
-            'lastName' => $request->lastName,
+            'customerCode' => ($request->customerCode ? $request->customerCode : 'KH'.time()),
+            'gender' => $request->gender,
             'mobile' => $request->mobile,
             'phone' => $request->phone,
             'email' => $request->email,
@@ -94,6 +95,7 @@ class CustomersController extends Controller {
     //Cập nhật khách hàng
     public function updateCustomer($customerId, Request $request) {
         $tags = [];
+        if(isset($request->tags_list) && count($request->tags_list))
         foreach ($request->tags_list as $tag) {
             $tags[] = $tag['id'];
         }
@@ -101,7 +103,7 @@ class CustomersController extends Controller {
             'firstName' => $request->firstName,
             'lastName' => $request->lastName,
             'customerCode' => $request->customerCode,
-            'lastName' => $request->lastName,
+            'gender' => $request->gender,
             'mobile' => $request->mobile,
             'phone' => $request->phone,
             'email' => $request->email,

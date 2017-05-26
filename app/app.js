@@ -138,7 +138,13 @@ define(['services/routeResolver'], function () {
         $stateProvider.state(
                 route.resolve('module', 'userInfo', '/userinfo', 'UserInfo', 'users/', 'vm', true)
                 );
-
+        
+        
+        //Notes list
+        $stateProvider.state(
+                route.resolve('module', 'notes', '/notes', 'Notes', 'notes/', 'vm', true)
+                );
+        
         $urlRouterProvider.otherwise("/module/dashboard");
 
 
@@ -164,11 +170,11 @@ define(['services/routeResolver'], function () {
         //-------------------------------------------------------
     });
 
-    app.run(['$rootScope', '$location', 'authService', '$state', '$localStorage', '$builder',
-        function ($rootScope, $location, authService, $state, $localStorage, $builder) {
+    app.run(['$rootScope', '$location', 'authService', '$state', '$localStorage', '$builder', 'urls',
+        function ($rootScope, $location, authService, $state, $localStorage, $builder, urls) {
             //Client-side security. Server-side framework MUST add it's 
             //own security as well since client-based security is easily hacked
-
+            $rootScope.urls = urls;
             $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState) {
 //                console.log(authService.getTokenClaims());
 //                

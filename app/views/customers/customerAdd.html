@@ -104,12 +104,12 @@
                                             <h5>Giới tính</h5>
                                             <div style="height: 32px">
                                                 <div class="radio-custom radio-default radio-inline">
-                                                    <input type="radio" id="inputBasicMale" name="inputGender" />
-                                                    <label for="inputBasicMale">Nam</label>
+                                                    <input type="radio" ng-model="vm.customer.gender" id="inputGenderMale" value="male" />
+                                                    <label for="inputGenderMale">Nam</label>
                                                 </div>
                                                 <div class="radio-custom radio-default radio-inline">
-                                                    <input type="radio" id="inputBasicFemale" name="inputGender" />
-                                                    <label for="inputBasicFemale">Nữ</label>
+                                                    <input type="radio" ng-model="vm.customer.gender" id="inputGenderFemale" value="female" />
+                                                    <label for="inputGenderFemale">Nữ</label>
                                                 </div>
                                             </div>
                                         </div>

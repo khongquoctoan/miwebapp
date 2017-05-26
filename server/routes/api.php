@@ -21,8 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1', 'namespace' => 'Managers'], function () {
     Route::post('/login', ['as' => 'login-api', 'uses' => 'UsersController@postLogin']);
     Route::post('/logout', ['as' => 'logout-api', 'uses' => 'UsersController@postLogout']);
-//    Route::get('/login', ['as' => 'login-api', 'uses' => 'UsersController@postLogin']);
-//    Route::options('/login', ['as' => 'login-api', 'uses' => 'UsersController@postLogin']);
+    
+    Route::get('/notes/download', ['as' => 'notes-api', 'uses' => 'NotesController@downloadFile']);
+    
     Route::group(['middleware' => ['jwt.auth']], function () {
     
         Route::get('/customers', ['as' => 'customers-api', 'uses' => 'CustomersController@getDataTables']);
@@ -46,6 +47,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Managers'], function () {
         Route::post('/deleteMultiUser', ['as' => 'user-deletes', 'uses' => 'UsersController@deleteMultiUser']);
         
         Route::get('/getTags', ['as' => 'tags-get', 'uses' => 'NotesController@getTags']);
+        Route::get('/notes', ['as' => 'notes-api', 'uses' => 'NotesController@getDataTables']);
+        Route::get('/deleteNote/{id}', ['as' => 'user-delete', 'uses' => 'NotesController@deleteNote']);
+        Route::post('/deleteMultiNote', ['as' => 'user-deletes', 'uses' => 'NotesController@deleteMultiNote']);
         
         Route::get('/getNotes/{customerId}', ['as' => 'notes-get', 'uses' => 'NotesController@getNotes']);
         Route::get('/notes/latest', ['as' => 'notes-latest', 'uses' => 'NotesController@getNotesLatest']);

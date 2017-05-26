@@ -34,8 +34,10 @@ define(['app'], function (app) {
                 customersService.insertCustomer(vm.customer).then(function (res) {
                     console.log(res);
                     if(res.status){
-                        vm.customer.id = res.id;
+//                        vm.customer.id = res.id;
                         showMessageBottomRight('Đã thêm khách hàng thành công!','success');
+                        $state.go('customerDetail', {customerId:res.id});
+                        
                     }else{
                         showMessageBottomRight('Không thể thêm mới thành công!','error');
                     }

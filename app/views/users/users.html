@@ -67,7 +67,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <span class="checkbox-custom checkbox-default">
+                                    <span class="checkbox-custom checkbox-primary">
                                         <input type="checkbox" name="ipCusListCheckAll" ng-click="vm.checkAllCus($event)" value="1" >
                                         <label for="ipCusListCheckAll"></label>
                                     </span>
@@ -101,7 +101,7 @@
 
                             <tr data-ng-repeat="user in vm.users">
                                 <td>
-                                    <span class="checkbox-custom checkbox-default">
+                                    <span class="checkbox-custom checkbox-primary">
                                         <input type="checkbox" checklist-model="vm.checkCus" checklist-value="user.id" name="ipCusListCheck{{user.id}}">
                                         <label for="ipCusListCheck{{user.id}}"></label>
                                     </span>

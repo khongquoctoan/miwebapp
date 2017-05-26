@@ -54,43 +54,41 @@ define(['app'], function (app) {
                     return {status:false};
                 });
         };
-        /*
-        factory.getCustomers = function (pageIndex, pageSize) {
-            return getPagedResource('customers', pageIndex, pageSize);
+        
+        //----- Get user list ------------
+        factory.getNotesSummary = function (pageIndex, pageSize) {
+            return getPagedResource('notes', pageIndex, pageSize);
         };
-
-        factory.insertCustomer = function (customer) {
-            return $http.post(
-                serviceBase + 'postCustomer', 
-                $.param(customer),
-                {headers : {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'}}
-            )
-            .then(function (results) {
-                return results.data;
+        
+        function getPagedResource(baseResource, pageIndex, pageSize) {
+            var resource = baseResource;
+            resource += (arguments.length == 3) ? buildPagingUri(pageIndex, pageSize) : '';
+            return $http.get(serviceBase + resource).then(function (response) {
+                var custs = response.data.data, totalRecords = response.data.totalRecords;
+                return {
+                    totalRecords: totalRecords,
+                    results: custs
+                };
             });
-        };
-
-        factory.updateCustomer = function (customer) {
-            return $http.post(serviceBase + 'putCustomer/' + customer.id, customer)
-            .then(function (status) {return status.data;},function(error){});
-        };
-
-        factory.deleteCustomer = function (id) {
-            return $http.get(serviceBase + 'deleteCustomer/' + id).then(function (status) {
+        }
+        
+        function buildPagingUri(pageIndex, pageSize) {
+            var uri = '?$top=' + pageSize + '&$skip=' + (pageIndex * pageSize);
+            return uri;
+        }
+        
+        factory.deleteNote = function (id) {
+            return $http.get(serviceBase + 'deleteNote/' + id).then(function (status) {
                 return status.data;
             });
         };
-
-        factory.getCustomer = function (id) {
-            //then does not unwrap data so must go through .data property
-            //success unwraps data automatically (no need to call .data property)
-            return $http.get(serviceBase + 'customer/' + id).then(function (results) {
-//                extendCustomers([results.data]);
-//                console.log(results.data[0]);
-                return results.data[0];
+        
+        factory.deleteMultiNote = function (cusSelected) {
+            return $http.post(serviceBase + 'deleteMultiNote', {list:cusSelected}).then(function (status) {
+                return status.data;
             });
-        };*/
-
+        };
+        
         return factory;
     };
 
